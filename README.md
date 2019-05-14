@@ -14,7 +14,8 @@ The module exports one function:
 function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Union{Missing,String},2}, leftCol :: Array{<:Union{Missing,String},2})
     nRows,nCols = size(A);
 ```
-    
+There is a simple Jupiter notebook that demonstrates how to call the function array2latex.
+
 **Note**: The code probably reflects my poor Julia skills. I'm still learning it...
 
 [My Pitt webpage](http://www.pitt.edu/~arie)
