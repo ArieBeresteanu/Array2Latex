@@ -4,8 +4,9 @@ This repo includes code that transforms an array into LaTeX script for creating 
 
 ## Instalation
 1. Clone/download arr2tex.jl to your favorite directory.
-2. Add that directory to the path (if it's not already there (something like: push!(LOAD_PATH,"C:/main_directory/sub_directory/") but with your directories name)
-3. Bring it to your code or notebook with the following command:  using arr2tex
+2. Add that directory to the path (if it's not already there (something like:*push!(LOAD_PATH,"C:/main_directory/sub_directory/"*) but with your directories name)
+3. Bring it to your code or notebook with the following command: <br/>
+*using arr2tex*
 
 ## Comments
 The module exports one function:
