@@ -16,3 +16,5 @@ function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Unio
 ```
     
 **Note**: The code probably reflects my poor Julia skills. I'm still learning it...
+
+[My Pitt webpage](http://www.pitt.edu/~arie)
