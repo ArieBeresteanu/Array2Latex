@@ -2,9 +2,10 @@ module arr2tex
 
 export array2latex
 
+ident="  "; #identation is two spaces
+
 function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Union{Missing,String},2}, leftCol :: Array{<:Union{Missing,String},2})
     nRows,nCols = size(A);
-    ident="  "; #ident is two spaces
 	
 	#decleration of the table
     println(raw"\begin{table}")
@@ -25,20 +26,20 @@ function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Unio
 	#table first row with the names of the columns 
 	headerString = "";
     for i=1:nCols
-        headerString *= (topRow[i] * raw" & ")
-    end
-    headerString *= (topRow[nCols+1] * raw" \\ ")
+		headerString *= (dwm(topRow[i]) * raw" & ")
+    end 
+	headerString *= (dwm(topRow[nCols+1]) * raw" \\ ")
     println(ident,ident,headerString)
     println(ident,ident,raw" \hline") #adding a line below the first row 
 	
 	# the content of the table. Each line start with the row name
     for j=1:nRows
-        print(ident,ident,leftCol[j]," & ")
+        print(ident,ident,dwm(leftCol[j])," & ")
         for i=1:nCols-1
-            print(A[j,i])
+            print(dwm(A[j,i]))
             print(raw" & ")
         end
-        print(A[j,nCols])
+        print(dwm(A[j,nCols]))
         println(raw" \\ ")
     end
     println(ident,ident,raw" \hline") #adding a line at the bottom
@@ -49,5 +50,14 @@ function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Unio
     println(raw"\end{table}")
     
 end #of function array2latex
+
+function dwm(x :: Union{Missing,Real,String})
+	# dwm stands for Deal with Missing
+	if ismissing(x)
+		return ident
+	else
+		return x
+	end
+end  #of function dwm	
 
 end  #of module
