@@ -4,37 +4,44 @@ export array2latex
 
 ident="  "; #identation is two spaces
 
-function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Union{Missing,String},2}, leftCol :: Array{<:Union{Missing,String},2})
+T1 = Array{<:Union{Missing,Real},2};
+T2 = Array{<:Union{Missing,String},2}; #the type used in the following function
+
+function array2latex(A :: T1, topRow::Union{T2,Missing}=missing , leftCol::Union{T2,Missing}=missing)
     nRows,nCols = size(A);
-	
-	#decleration of the table
+
+    #decleration of the table
     println(raw"\begin{table}")
     println(ident,raw"\begin{center}")
-	
-	#caption and label - you should change that
+
+    #caption and label - you should change that
     println(ident,ident,raw"\caption{Your caption here.}")
     println(ident,ident,raw"\label{tab:table1}")
     
-	#table columns definition (everything centered) 
-	colsString="{"
+    #table columns definition (everything centered) 
+    colsString="{"
     for i=1:nCols
         colsString = colsString * "c|"
     end
     colsString =colsString * "c}"
     println(ident,ident,raw"\begin{tabular}",colsString)
     
-	#table first row with the names of the columns 
-	headerString = "";
-    for i=1:nCols
-		headerString *= (dwm(topRow[i]) * raw" & ")
-    end 
-	headerString *= (dwm(topRow[nCols+1]) * raw" \\ ")
-    println(ident,ident,headerString)
+    #table first row with the names of the columns 
+    if ~ismissing(topRow) 
+        headerString = "";
+        for i=1:nCols
+            headerString *= (dwm(topRow[i]) * raw" & ")
+        end 
+        headerString *= (dwm(topRow[nCols+1]) * raw" \\ ")
+        println(ident,ident,headerString)
+    end
     println(ident,ident,raw" \hline") #adding a line below the first row 
-	
-	# the content of the table. Each line start with the row name
+    
+    # the content of the table. Each line start with the row name
     for j=1:nRows
-        print(ident,ident,dwm(leftCol[j])," & ")
+		if ~ismissing(leftCol)
+			print(ident,ident,dwm(leftCol[j])," & ")
+		end
         for i=1:nCols-1
             print(dwm(A[j,i]))
             print(raw" & ")
@@ -43,8 +50,8 @@ function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Unio
         println(raw" \\ ")
     end
     println(ident,ident,raw" \hline") #adding a line at the bottom
-	
-	#closing the table tags
+    
+    #closing the table tags
     println(ident,ident,raw"\end{tabular}")
     println(ident,raw"\end{center}")
     println(raw"\end{table}")
