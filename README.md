@@ -19,6 +19,12 @@ function array2latex(A :: Array{<:Union{Missing,Real},2}, topRow :: Array{<:Unio
 ```
 There is a simple Jupiter notebook that demonstrates how to call the function array2latex.
 
+## Typical Usage
+Currently you can call it in 3 different ways:
+1. array2latex(A,topRow,leftCol)
+2. array2latex(A,missing,leftCol)
+3. array2latex(A,missing,missing)
+
 **Note**: The code probably reflects my poor Julia skills. I'm still learning it...
 
 [My Pitt webpage](http://www.pitt.edu/~arie)
